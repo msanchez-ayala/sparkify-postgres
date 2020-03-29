@@ -5,6 +5,16 @@ from sql_queries import create_table_queries, drop_table_queries
 
 
 def create_database():
+    """
+    Returns
+    -------
+    psycopg2 cursor and connection objects.
+
+    A connection is established with the default database. sparkifydb is dropped
+    if it exists, and is then created. The connection to the default database is
+    closed, and a new connection is establised with sparkifydb.
+    """
+
     # connect to default database
     conn = psycopg2.connect(f"host=127.0.0.1 dbname=postgres user={config.user} password={config.password}")
     conn.set_session(autocommit=True)
@@ -25,18 +35,31 @@ def create_database():
 
 
 def drop_tables(cur, conn):
+    """
+    All five tables in sparkifydb are dropped as specified by the queries in
+    sql_queries.py.
+    """
     for query in drop_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def create_tables(cur, conn):
+    """
+    All tables in sparkifydb are created as specified by the queries in
+    sql_queries.py.
+    """
     for query in create_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def main():
+    """
+    Bundles up the script: creates db and opens connection, drops all tables
+    that exist, creates all five tables, and then closes the connection to the
+    database.
+    """
     cur, conn = create_database()
 
     drop_tables(cur, conn)
