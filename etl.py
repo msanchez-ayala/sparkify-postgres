@@ -2,7 +2,6 @@ import os
 import glob
 import psycopg2
 import pandas as pd
-import config
 from sql_queries import *
 
 
@@ -192,7 +191,9 @@ def main():
     Bundles all ETL. Connects to sparkifydb, performs ETL on song data and then
     log data. Closes the connection to sparkifydb.
     """
-    conn = psycopg2.connect(f"host=127.0.0.1 dbname=sparkifydb user={config.user} password={config.password}")
+    conn = psycopg2.connect(
+        "host=127.0.0.1 dbname=sparkifydb user=student password=student"
+    )
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)

@@ -11,60 +11,61 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 songplay_table_create = """
     CREATE TABLE IF NOT EXISTS
       songplays (
-        timestamp timestamp,
-        user_id int,
-        level text,
-        song_id varchar,
-        artist_id varchar,
-        session_id int,
-        location varchar,
-        user_agent varchar
+        songplay_id SERIAL PRIMARY KEY,
+        start_time TIMESTAMP,
+        user_id INT,
+        level VARCHAR,
+        song_id VARCHAR,
+        artist_id VARCHAR,
+        session_id INT,
+        location VARCHAR,
+        user_agent VARCHAR
       )
 """
 
 user_table_create = """
     CREATE TABLE IF NOT EXISTS
       users (
-        user_id int,
-        first_name text,
-        last_name text,
-        gender text,
-        level text
+        user_id INT UNIQUE NOT NULL PRIMARY KEY,
+        first_name VARCHAR,
+        last_name VARCHAR,
+        gender VARCHAR,
+        level VARCHAR
       )
 """
 
 song_table_create = """
     CREATE TABLE IF NOT EXISTS
       songs (
-        song_id varchar,
-        title varchar,
-        artist_id varchar,
-        year int,
-        duration decimal
+        song_id VARCHAR UNIQUE NOT NULL PRIMARY KEY,
+        title VARCHAR NOT NULL,
+        artist_id VARCHAR NOT NULL,
+        year INT,
+        duration DECIMAL
       )
 """
 
 artist_table_create = """
     CREATE TABLE IF NOT EXISTS
       artists (
-        artist_id varchar,
-        name varchar,
-        location varchar,
-        latitude decimal,
-        longitude decimal
+        artist_id VARCHAR UNIQUE NOT NULL PRIMARY KEY,
+        name VARCHAR NOT NULL,
+        location VARCHAR,
+        latitude DECIMAL,
+        longitude DECIMAL
       )
 """
 
 time_table_create = """
     CREATE TABLE IF NOT EXISTS
       time (
-        timestamp timestamp,
-        hour int,
-        day int,
-        week_of_year int,
-        month int,
-        year int,
-        weekday int
+        start_time TIMESTAMP NOT NULL PRIMARY KEY,
+        hour INT,
+        day INT,
+        week_of_year INT,
+        month INT,
+        year INT,
+        weekday INT
       )
 """
 
@@ -73,7 +74,8 @@ time_table_create = """
 songplay_table_insert = """
     INSERT INTO
       songplays (
-        timestamp,
+        songplay_id,
+        start_time,
         user_id,
         level,
         song_id,
@@ -83,8 +85,7 @@ songplay_table_insert = """
         user_agent
       )
     VALUES
-      (%s, %s, %s, %s,
-       %s, %s, %s, %s)
+      (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 user_table_insert = """
@@ -98,6 +99,7 @@ user_table_insert = """
       )
     VALUES
       (%s, %s, %s, %s, %s)
+    ON CONFLICT DO NOTHING
 """
 
 song_table_insert = """
@@ -111,6 +113,7 @@ song_table_insert = """
       )
     VALUES
       (%s, %s, %s, %s, %s)
+    ON CONFLICT DO NOTHING
 """
 
 artist_table_insert = """
@@ -124,13 +127,14 @@ artist_table_insert = """
       )
     VALUES
       (%s, %s, %s, %s, %s)
+    ON CONFLICT DO NOTHING
 """
 
 
 time_table_insert = """
     INSERT INTO
       time (
-        timestamp,
+        start_time,
         hour,
         day,
         week_of_year,
@@ -139,8 +143,8 @@ time_table_insert = """
         weekday
       )
     VALUES
-      (%s, %s, %s, %s,
-       %s, %s, %s)
+      (%s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT DO NOTHING
 """
 
 ### FIND SONGS ###

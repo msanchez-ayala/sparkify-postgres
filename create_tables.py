@@ -1,7 +1,5 @@
 import psycopg2
-import config
 from sql_queries import create_table_queries, drop_table_queries
-
 
 
 def create_database():
@@ -16,7 +14,9 @@ def create_database():
     """
 
     # connect to default database
-    conn = psycopg2.connect(f"host=127.0.0.1 dbname=postgres user={config.user} password={config.password}")
+    conn = psycopg2.connect(
+        "host=127.0.0.1 dbname=studentdb user=student password=student"
+    )
     conn.set_session(autocommit=True)
     cur = conn.cursor()
 
