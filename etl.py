@@ -192,7 +192,11 @@ def main():
     log data. Closes the connection to sparkifydb.
     """
     conn = psycopg2.connect(
-        "host=127.0.0.1 dbname=sparkifydb user=student password=student"
+        host = '127.0.0.1',
+        dbname = 'sparkifydb',
+        user = 'student',
+        password = 'student',
+        port = '5555'
     )
     cur = conn.cursor()
 
