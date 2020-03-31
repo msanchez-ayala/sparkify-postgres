@@ -83,3 +83,8 @@ Once you're done and want to close out
 docker stop CONTAINER_NAME
 docker rm CONTAINER_NAME
 ```
+## Acknowledgements
+- **Dockerfile**, **init.sql**, and these instructions above are attributed to the
+work of [Ken H](https://github.com/kenhanscombe), whose examples I've followed
+to containerize my project.
+- The erd diagram was created using [Lucidchart](lucidchart.com)
