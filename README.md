@@ -44,15 +44,45 @@ read and write queries called from **create_tables.py** and **etl.py**.
 ## Sample Queries
 Most common user locations
 
-```SELECT COUNT(location) FROM songplays```
+```
+SELECT
+  location,
+  COUNT(location)
+FROM
+  songplays
+GROUP BY
+  1
+ORDER BY
+  2 DESC
+LIMIT 10
+```
 
 Breakdown of user demographic
 
-```SELECT COUNT(gender) FROM users```
+```
+SELECT
+  gender,
+  COUNT(gender)
+FROM
+  users
+GROUP BY
+  1
+ ```
 
 Most common hour of the day to stream music
 
-```SELECT COUNT(hour) FROM time```
+```
+SELECT
+  hour,
+  COUNT(hour)
+FROM
+  time
+GROUP BY
+  1
+ORDER BY
+  2 DESC
+LIMIT 5
+```
 
 ## How to Use - Docker
 
